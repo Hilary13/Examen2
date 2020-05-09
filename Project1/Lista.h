@@ -1,5 +1,6 @@
 #ifndef LISTA_H
 #define LISTA_H
+#include "IteradorLista.h"
 #include "Nodo.h"
 
 
@@ -21,10 +22,11 @@ public:
 	bool buscar(T*);
 	bool listaVacia();
 	Nodo<T>* getPrimero();
-	int contar(Lista<T*>);
+	int getCantidad();
 	std::string toString();
 	Lista& operator=(Lista&);
 	~Lista();
+	IteradorLista<T>* obtenerIterador();
 
 };
 
@@ -171,9 +173,27 @@ Lista<T>::~Lista()
 		eliminarInicio();
 	tamanio = 0;
 }
+template<class T>
+inline IteradorLista<T>* Lista<T>::obtenerIterador()
+{
+	return new IteradorLista<T>(primero);
+}
 //-------------------------------------------------------------------------------------------------------------
 template<class T>
 Nodo<T>* Lista<T>::getPrimero() { return primero; }
+
+template<class T>
+inline int Lista<T>::getCantidad()
+{
+	Nodo<T>* actual = primero;
+	int cant = 0;
+	while (actual)
+	{
+		actual = actual->getSig();
+		cant++;
+	}
+	return cant;
+}
 
 
 

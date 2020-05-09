@@ -1,12 +1,2 @@
 ﻿  main.cpp
-C:\Users\Hilary\Desktop\Examen 2\Examen\codigoBase\Project1\Project1\Arreglo.h(29,17): error C2143: error de sintaxis: falta ';' delante de '<'
-C:\Users\Hilary\Desktop\Examen 2\Examen\codigoBase\Project1\Project1\Arreglo.h(32): message : Vea la referencia a la creación de una instancia de clase plantilla "Arreglo<T>" que se está compilando
-C:\Users\Hilary\Desktop\Examen 2\Examen\codigoBase\Project1\Project1\Arreglo.h(29,1): error C4430: falta el especificador de tipo; se presupone int. Nota: C++ no admite default-int
-C:\Users\Hilary\Desktop\Examen 2\Examen\codigoBase\Project1\Project1\Arreglo.h(29,1): error C2238: símbolos (token) inesperados delante de ';'
-C:\Users\Hilary\Desktop\Examen 2\Examen\codigoBase\Project1\Project1\Arreglo.h(50,16): error C2988: declaración o definición de plantilla irreconocible
-C:\Users\Hilary\Desktop\Examen 2\Examen\codigoBase\Project1\Project1\Arreglo.h(50,16): error C2143: error de sintaxis: falta ';' delante de '<'
-C:\Users\Hilary\Desktop\Examen 2\Examen\codigoBase\Project1\Project1\Arreglo.h(50,16): error C2059: error de sintaxis: '<'
-C:\Users\Hilary\Desktop\Examen 2\Examen\codigoBase\Project1\Project1\Arreglo.h(50,29): error C2065: 'T': identificador no declarado
-C:\Users\Hilary\Desktop\Examen 2\Examen\codigoBase\Project1\Project1\Arreglo.h(50,21): error C2923: 'Arreglo': 'T' no es un argumento de tipo de plantilla válido para el parámetro 'T'
-C:\Users\Hilary\Desktop\Examen 2\Examen\codigoBase\Project1\Project1\Arreglo.h(51,1): error C2143: error de sintaxis: falta ';' delante de '{'
-C:\Users\Hilary\Desktop\Examen 2\Examen\codigoBase\Project1\Project1\Arreglo.h(51,1): error C2447: '{': falta el encabezado de función (¿lista formal de estilo anterior?)
+  Project1.vcxproj -> C:\Users\Hilary\Desktop\Examen 2\Examen\codigoBase\Project1\x64\Debug\Project1.exe

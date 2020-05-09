@@ -4,13 +4,17 @@
 #include "IteradorLista.h"
 #include "IteradorArreglo.h"
 #include "Arreglo.h"
+#include "Lista.h"
 
 // Puede agregar mas atributos o metodos si lo requiere
 
 class Banco
 {
 private:
-	//??
+	Arreglo<Sucursal>* arregloSucu = new Arreglo<Sucursal>;
+
+	//Lista<Cliente>* listCli = new Lista<Cliente>;
+
 public:
 	Banco();
 	void menu();
@@ -23,6 +27,9 @@ public:
 	void menuCase7();
 	void menuCase8();
 	void menuCase9();
+	virtual void operator[] (unsigned int);
+
+
 
 
 };
@@ -107,12 +114,10 @@ void Banco::menu()
 void Banco::menuCase1() {
 	cout << " --------- (1) Ingresar  nueva Sucursal--------" << endl << endl;
 	string nombre;
-	Cliente* cliAux = new Cliente("", "");
 	cout << "Digite el nombre de la Sucursal: ";
 	cin >> nombre;
 	codigoSucu++;
-	Arreglo<Sucursal>* arregloSucu = new Arreglo<Sucursal>();
-	Sucursal* sucursal = new Sucursal(nombre, codigoSucu,cliAux);
+	Sucursal* sucursal = new Sucursal(nombre, codigoSucu);
 	if (arregloSucu->agregaFinal(sucursal)) {
 
 		cout << sucursal->toString();
@@ -130,17 +135,39 @@ void Banco::menuCase1() {
 void Banco::menuCase2() {
 	cout << "------ (2) Mostrar Sucursales------" << endl << endl;
 
+		cout << arregloSucu->toString() << endl;
+		system("pause");
+		Banco::menu();
+
 
 	cin.get();
 }
 //----------------------------------------------
 void Banco::menuCase3() {
 	cout << "--- (3) Ingresar Cliente a Sucursal especifica--" << endl << endl;
-
-
-
-
-
+	IteradorArreglo<Sucursal>* ite = arregloSucu->getIterador();
+	string nombre;
+	string cedula;
+	int numSucu;
+	ite->first();
+	cout << "Ingrese el numero de una sucursal especifica: ";
+	cin >> numSucu;
+	while (ite->isDone()) {
+		
+		if (numSucu == (ite->currenItem()->getNumSuc())) {
+			cout << "Ingrese el nombre del cliente: ";
+			cin >> nombre;
+			cout << endl;
+			cout << "Ingrese la cedula del cliente: ";
+			cin >> cedula;
+			ite->currenItem()->getListaCliente()->insertarInicio(new Cliente(nombre, cedula));
+			ite->next();
+			break;
+		}
+		ite->next();
+	}	
+	
+	Banco::menu();
 	cin.get();
 }
 //----------------------------------------------
@@ -148,28 +175,115 @@ void Banco::menuCase4() {
 
 	cout << "----  (4)Mostrar clientes por Sucursal especifica ----" << endl << endl;
 	
+	IteradorArreglo<Sucursal>* ite = arregloSucu->getIterador();
+	int numSucu;
+	ite->first();
+	cout << "Ingrese el numero de una sucursal especifica: ";
+	cin >> numSucu;
+	while (ite->isDone()) {
+		if (numSucu == (ite->currenItem()->getNumSuc())) {
+			
+			cout << ite->currenItem()->getListaCliente()->toString();
+		}
+		else {
+			cout << "Codigo no encontrado";
+		}
+
+	}
+
 	cout << "<<Digita Enter>>" << endl;
 	cin.get();
 }
 //----------------------------------------------
 void Banco::menuCase5() {
 	cout << "----- (5)Ingresar  cuentas a  clientes  de una Sucursal especifica -----" << endl;
-	
+	IteradorArreglo<Sucursal>* ite = arregloSucu->getIterador();
 
-	cin.get();
+	string ceduClie;
+	int numSucu;
+	ite->first();
+	cout << "Ingrese el numero de una sucursal especifica: ";
+	cin >> numSucu;
+	while (ite->isDone()) {
+		if (numSucu == (ite->currenItem()->getNumSuc())) {
+
+			IteradorLista<Cliente>* iteClienta = ite->currenItem()->getListaCliente()->obtenerIterador();
+			cout << "Ingrese el numero de cedula: ";
+			cin >> ceduClie;
+			if (ceduClie == iteClienta->currenItem()->getCedula()) {
+				int numCuenta;
+				string tipo;
+				int monto;
+				cout << "Ingrese el numero de cuenta: ";
+				cin >> numCuenta;
+				cout << endl;
+				cout << "Digite el tipo de cuenta (debito/credito): ";
+				cin >> tipo;
+				cout << endl;
+				cout << "Ingrese el monto de la cuenta: ";
+				cin >> monto;
+				iteClienta->currenItem()->getCuenta()->agregaFinal(new Cuenta(numCuenta, tipo, monto));
+				Banco::menu();
+			}
+			else {
+				cout << "Cedula no existe";
+			}
+			
+			
+
+		}
+		else {
+			cout << "Codigo no encontrado";
+		}
+
+		cin.get();
+
+	}
 }
 //----------------------------------------------
 void Banco::menuCase6() {
 	cout << "-----(6)Mostrar cuentas por  Cliente  especifico----" << endl;
 	
+	IteradorArreglo<Sucursal>* ite = arregloSucu->getIterador();
 
-	cin.get();
+	string ceduClie;
+	int numSucu;
+	ite->first();
+	cout << "Ingrese el numero de una sucursal especifica: ";
+	cin >> numSucu;
+	while (ite->isDone()) {
+		if (numSucu == (ite->currenItem()->getNumSuc())) {
+
+			IteradorLista<Cliente>* iteClienta = ite->currenItem()->getListaCliente()->obtenerIterador();
+			cout << "Ingrese el numero de cedula: ";
+			cin >> ceduClie;
+			if (ceduClie == iteClienta->currenItem()->getCedula()) {
+
+				cout << iteClienta->currenItem()->getCuenta()->toString();
+				system("pause");
+				system("cls");
+				Banco::menu();
+
+			}
+			else {
+				cout << "Cedula no existe";
+			}
+
+		}
+		else {
+			cout << "Codigo no encontrado";
+		}
+
+		cin.get();
+	}
 }
 //----------------------------------------------
 void Banco::menuCase7() {
 	
 	cout << "-----  (7)   Probar operador [] -----" << endl ;
 	
+
+
 
 	cin.get();
 }
@@ -178,11 +292,38 @@ void Banco::menuCase8() {
 	
 	cout << "----------(8) Probando operador de suma + ----------" << endl;
 	cout << "Al sumar dos sucursales, los clientes de la segunda Sucursal pasaran a ser tambien clientes  de la primera Sucursal" << endl << endl;
-
+	IteradorArreglo<Sucursal>* ite = arregloSucu->getIterador();
+	int sucu1;
+	int sucu2;
+	Sucursal* sucuAux = new Sucursal();
+	Sucursal* sucuAux1 = new  Sucursal();
 	cout << "Digite el codigo de la primer Sucursal (101-107): ";
+	cin >> sucu1;
+	
+	while (ite->isDone()) {
+		if (sucu1 == (ite->currenItem()->getNumSuc())) 
+		{
+			sucuAux = ite->currenItem();
+		}
+		else {
+			cout << "Sucursal 1 no encontrada";
+		}
+
+	}
 	cout << "Digite el codigo de la segunda Sucursal (101-107): ";
+	cin >> sucu2;
 
-
+	while (ite->isDone()) {
+		if (sucu2 == (ite->currenItem()->getNumSuc()))
+		{
+			sucuAux1 = ite->currenItem();
+		}
+		else {
+			cout << "Sucursal 1 no encontrada";
+		}
+	}
+	 
+	(*sucuAux) = *((*sucuAux) + (*sucuAux1));
 
 	cin.get();
 }
@@ -194,6 +335,11 @@ void Banco::menuCase9() {
 
 
 	cin.get();
+}
+
+inline void Banco::operator[](unsigned int n)
+{
+	cout << arregloSucu[n].toString();
 }
 
 

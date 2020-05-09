@@ -3,6 +3,7 @@
 #include<iostream>
 #include <sstream>
 #include "cuenta.h"
+#include "Arreglo.h"
 using namespace std;
 
 // Los atributos NO se alteran ni se cambian
@@ -15,6 +16,7 @@ class Cliente
 private:
 	string nombre;
 	string cedula;
+	Arreglo<Cuenta>* arreCuenta;
 
 public:
 	Cliente(string, string);
@@ -22,10 +24,14 @@ public:
 	void setCedula(string);
 	string getNombre();
 	string getCedula();
-	string toString();
+	Arreglo<Cuenta>* getCuenta();
+	virtual string toString()const;
+	bool operator==(const Cliente&);
+	bool operator!=(const Cliente&);
+	
 
 };
-
+ostream& operator<<(std::ostream&, const Cliente&);
 
 Cliente::Cliente(string nombre, string cedula ) {
 	this->nombre = nombre;
@@ -37,14 +43,39 @@ void Cliente::setCedula(string cedula) { this->cedula = cedula; }
 string Cliente::getNombre() { return this->nombre; }
 string Cliente::getCedula() { return this->cedula; }
 
-
-//----------------------------------------------------
-string Cliente::toString() {
-	stringstream r;
-	r << "\t" << "Nombre: " << this->nombre << endl;
-	r << "\t" << "Cedula:" << this->cedula << endl;
-	r << "\t" << "Cantidad de cuentas:" <<  "?????????????"  << endl;////////// completar
-	return r.str();
+ Arreglo<Cuenta>* Cliente::getCuenta()
+{
+	return arreCuenta;
 }
 
 
+//----------------------------------------------------
+string Cliente::toString()const {
+	stringstream r;
+	r << "\t" << "Nombre: " << this->nombre << endl;
+	r << "\t" << "Cedula:" << this->cedula << endl;
+	r << "\t" << "Cantidad de cuentas:" <<  arreCuenta->getK() << endl;////////// completar
+	return r.str();
+}
+
+inline bool Cliente::operator==(const Cliente& aux)
+{
+	if (nombre == aux.nombre && cedula == aux.cedula) {
+		return true;
+	}
+	return false;
+}
+
+inline bool Cliente::operator!=(const Cliente& aux)
+{
+	if (nombre != aux.nombre && cedula != aux.cedula) {
+		return true;
+	}
+	return false;
+}
+
+ostream& operator<<(ostream& salida, const Cliente& u)
+{
+	salida << u.toString();
+	return salida;
+}

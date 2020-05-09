@@ -1,5 +1,4 @@
 #pragma once
-#include "Arreglo.h"
 #include "Iterador.h"
 
 template <class T>
@@ -10,10 +9,10 @@ private:
     int	_k;
 
 public:
-    IteradorArreglo(T**, int);
 
+    IteradorArreglo(T**, int);
     bool isDone(); // retorna true si hay mas elementos
-    T** currenItem();// retorna el elemento actual
+    T* currenItem();// retorna el elemento actual
     void first(); //pone cur al inicio
     void next();// avanza cur
 };
@@ -31,13 +30,12 @@ IteradorArreglo<T>::IteradorArreglo(T** vec, int k) {
 template<class T>
 bool IteradorArreglo<T>::isDone()
 {
-
     return (cur < _k);  // no verifica que haya un elemento en la posicion
 }
 
 //---------------------------------------------
 template<class T>
-T** IteradorArreglo<T>::currenItem()
+T* IteradorArreglo<T>::currenItem()
 {
     return vec[cur];
     //return *(vec + cur); // esto se denomina aritmetica de operadores y suele verse en progra 1

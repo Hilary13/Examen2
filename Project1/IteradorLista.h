@@ -1,5 +1,4 @@
 #pragma once
-#include "Iterador.h"
 #include "Nodo.h"
 
 
@@ -32,7 +31,8 @@ bool IteradorLista<T>::isDone()
 //------------------------------
 template <class T>
 T* IteradorLista<T>::currenItem() {
-	return  cur->getElemento();
+
+	return  cur->getInfo();
 }
 
 //--------------------------------

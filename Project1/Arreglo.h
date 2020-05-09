@@ -19,6 +19,7 @@ public:
 	Arreglo();
 	~Arreglo();
 	T* buscar(T*);
+	bool buscar(int);
 	T** getV();
 	int getN();
 	int getK();
@@ -111,6 +112,19 @@ T* Arreglo<T>::buscar(T* aux) {
 		}
 	}
 	return NULL;
+}
+
+template<class T>
+bool Arreglo<T>::buscar(int aux)
+{
+	for (int i = 0; i < _k; i++)
+	{
+		if ((aux) = (_v[i]))
+		{
+			return  true;
+		}
+	}
+	return false;
 }
 
 //----------------------------------------------
